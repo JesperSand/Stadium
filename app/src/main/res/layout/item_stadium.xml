@@ -3,13 +3,13 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/arena_image"
+        android:id="@+id/stadiumImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/arena_name"
+        android:id="@+id/stadiumName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
