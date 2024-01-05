@@ -13,14 +13,15 @@ class MainActivity : AppCompatActivity() {
 
         // 1. Initiera din RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         // 2. Skapa din lista av Stadium objekt
         // (Observera att du kommer att behöva ersätta detta med din faktiska data)
         val stadiumList = listOf(
             StadiumAdapter.Stadium("Stadium 1", "Image 1"),
             StadiumAdapter.Stadium("Stadium 2", "Image 2"),
-            StadiumAdapter.Stadium("Stadium 3", "Image 3")
+            StadiumAdapter.Stadium("Stadium 3", "Image 3"),
+            StadiumAdapter.Stadium("Stadium 4", "Image 4")
+
         )
 
 

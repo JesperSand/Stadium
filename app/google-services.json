@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "788413643174",
+    "project_id": "stadiums-db75b",
+    "storage_bucket": "stadiums-db75b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788413643174:android:e66e31deaa4e5585c27767",
+        "android_client_info": {
+          "package_name": "com.example.stadiums"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYtHEF_IPTVcMXAK6lMe3E7rZJcbOmd7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
