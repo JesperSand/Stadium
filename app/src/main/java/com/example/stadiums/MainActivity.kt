@@ -5,8 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var db: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -14,22 +19,21 @@ class MainActivity : AppCompatActivity() {
         // 1. Initiera din RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        // 2. Skapa din lista av Stadium objekt
-        // (Observera att du kommer att behöva ersätta detta med din faktiska data)
-        val stadiumList = listOf(
-            StadiumAdapter.Stadium("Stadium 1", "Image 1"),
-            StadiumAdapter.Stadium("Stadium 2", "Image 2"),
-            StadiumAdapter.Stadium("Stadium 3", "Image 3"),
-            StadiumAdapter.Stadium("Stadium 4", "Image 4")
 
-        )
+        // Skapa en instans av FirebaseFirestore
+        db = Firebase.firestore
 
+        val stadiumList = mutableListOf<StadiumAdapter.Stadium>()
 
-        // 3. Skapa en instans av din StadiumAdapter
-        val adapter = StadiumAdapter(stadiumList)
-
-        // 4. Sätt din StadiumAdapter som adaptern för din RecyclerView
-        recyclerView.adapter = adapter
-
+        db.collection("stadiums").get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                val name = document.getString("name") ?: "Unknown"
+                val image = document.getString("image") ?: "Unknown"
+                val stadium = StadiumAdapter.Stadium(name, image)
+                stadiumList.add(stadium)
+            }
+            val adapter = StadiumAdapter(stadiumList)
+            recyclerView.adapter = adapter
+        }
     }
 }
