@@ -1,5 +1,6 @@
 package com.example.stadiums
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,8 +36,22 @@ class StadiumAdapter(private val stadiumList: List<Stadium>) : RecyclerView.Adap
         holder.city.text = stadium.city
 
         // Använd Glide för att ladda bilden
-        Glide.with(holder.stadiumImage.context) // Använd context från ImageView
+        Glide.with(holder.stadiumImage.context)
             .load(stadium.image)
             .into(holder.stadiumImage)
+
+        // Lägg till en onClickListener till hela vyn
+        holder.itemView.setOnClickListener {
+            // Skapa en Intent för att starta StadiumDetailActivity
+            val intent = Intent(holder.itemView.context, StadiumDetailActivity::class.java)
+
+            // Lägg till information om den valda stadionen som "extras" i Intent-objektet
+            intent.putExtra("name", stadium.name)
+            intent.putExtra("image", stadium.image)
+            intent.putExtra("city", stadium.city)
+
+            // Starta StadiumDetailActivity
+            holder.itemView.context.startActivity(intent)
+        }
     }
 }
