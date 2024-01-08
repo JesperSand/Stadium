@@ -10,10 +10,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.storage
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
 import android.view.View
+import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
 
 
@@ -28,6 +30,11 @@ class MainActivity : AppCompatActivity() {
         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
+        val addButton = findViewById<Button>(R.id.addButton)
+        addButton.setOnClickListener {
+            val intent = Intent(this, AddStadiumActivity::class.java)
+            startActivity(intent)
+        }
 
         // 1. Initiera din RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)

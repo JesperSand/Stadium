@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/myBackgroundColor"
+    tools:context=".AddStadiumActivity">
+
+    <EditText
+        android:id="@+id/editTextCountry"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="Country"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:background="@drawable/rounded_edittext"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStadiumName" />
+
+    <EditText
+        android:id="@+id/editTextCity"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="City"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:background="@drawable/rounded_edittext"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCountry" />
+
+    <EditText
+        android:id="@+id/editTextCapacity"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="Stadium Capacity"
+        android:inputType="number"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:background="@drawable/rounded_edittext"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCity" />
+
+    <EditText
+        android:id="@+id/editTextBuilt"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="Year built"
+        android:inputType="number"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:background="@drawable/rounded_edittext"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCapacity" />
+
+    <EditText
+        android:id="@+id/editTextTeam"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="Team"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:background="@drawable/rounded_edittext"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBuilt" />
+
+    <EditText
+        android:id="@+id/editTextStadiumName"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="70dp"
+        android:hint="Stadium Name"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:background="@drawable/rounded_edittext"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonUploadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="24dp"
+        android:text="Upload Image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTeam" />
+
+    <ImageView
+        android:id="@+id/imageViewStadium"
+        android:layout_width="177dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUploadImage" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Add"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewStadium" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
