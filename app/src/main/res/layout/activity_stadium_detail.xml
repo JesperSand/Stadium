@@ -7,12 +7,15 @@
     android:background="@color/myBackgroundColor"
     tools:context=".StadiumDetailActivity">
 
+
     <ImageView
         android:id="@+id/stadiumImage"
         android:layout_width="410dp"
         android:layout_height="237dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
