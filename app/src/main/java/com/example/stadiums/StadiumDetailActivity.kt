@@ -49,8 +49,12 @@ class StadiumDetailActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    updateUI(document)
+                    val documentStadiumName = document.getString("name")
+                    if (stadiumName == documentStadiumName) {
+                        Log.d(TAG, "${document.id} => ${document.data}")
+                        updateUI(document)
+                        break // Avbryt loopen efter att vi har hittat rätt dokument
+                    }
                 }
             }
             .addOnFailureListener { exception ->
@@ -61,21 +65,24 @@ class StadiumDetailActivity : AppCompatActivity() {
         val capacityTextView = findViewById<TextView>(R.id.capacity)
         val builtTextView = findViewById<TextView>(R.id.built)
         val teamTextView = findViewById<TextView>(R.id.team)
+        val countryTextView = findViewById<TextView>(R.id.country)
 
         val capacity = document.getString("capacity")
         val built = document.getString("built")
         val team = document.getString("team")
+        val country = document.getString("country")
 
-        if (capacity == null || built == null || team == null) {
+        if (capacity == null || built == null || team == null || country == null ) {
             Log.e(TAG, "Failed to update UI: capacity=$capacity, built=$built, team=$team")
             return
         }
 
-        Log.d(TAG, "Updating UI with capacity: $capacity, built: $built, team: $team")
+        Log.d(TAG, "Updating UI with country: $country capacity: $capacity, built: $built, team: $team")
 
         capacityTextView.text = "Capacity: $capacity"
         builtTextView.text = "Year built: $built"
         teamTextView.text = "Team: $team"
+        countryTextView.text= "Country: $country"
     }
 
 }
