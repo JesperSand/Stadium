@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -19,10 +20,14 @@ class StadiumDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stadium_detail)
         window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
+        val backButton = findViewById<ImageButton>(R.id.backButton)
+        backButton.setOnClickListener {
+            finish()
+        }
 
         val db = Firebase.firestore
 
@@ -43,6 +48,7 @@ class StadiumDetailActivity : AppCompatActivity() {
         // Använd Glide för att ladda bilden
         Glide.with(this)
             .load(stadiumImage)
+            .centerCrop()
             .into(imageView)
 
         db.collection("stadiums")
@@ -51,7 +57,6 @@ class StadiumDetailActivity : AppCompatActivity() {
                 for (document in result) {
                     val documentStadiumName = document.getString("name")
                     if (stadiumName == documentStadiumName) {
-                        Log.d(TAG, "${document.id} => ${document.data}")
                         updateUI(document)
                         break // Avbryt loopen efter att vi har hittat rätt dokument
                     }
