@@ -1,5 +1,6 @@
 package com.example.stadiums
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,8 @@ import androidx.core.content.res.ResourcesCompat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
+    val ADD_STADIUM_REQUEST_CODE = 1  // Ett unikt request code
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,20 +33,21 @@ class MainActivity : AppCompatActivity() {
         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
+
         val addButton = findViewById<Button>(R.id.addButton)
         addButton.setOnClickListener {
             val intent = Intent(this, AddStadiumActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, ADD_STADIUM_REQUEST_CODE)
         }
 
-        // 1. Initiera din RecyclerView
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
 
         // Skapa en instans av FirebaseFirestore
         db = Firebase.firestore
         val storage = Firebase.storage
+        // Kalla på updateView() här
+        updateView()
 
         val storageRef = storage.reference
         val sharedPref = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
@@ -92,4 +96,28 @@ class MainActivity : AppCompatActivity() {
             recyclerView.adapter = adapter
         }
     }
+    fun updateView() {
+        val stadiumList = mutableListOf<StadiumAdapter.Stadium>()
+
+        db.collection("stadiums").get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                val name = document.getString("name") ?: "Unknown"
+                val city = document.getString("city") ?: "Unknown"
+                val imageUrl = document.getString("imageUrl") ?: "Unknown"
+                val stadium = StadiumAdapter.Stadium(name, imageUrl, city)
+                stadiumList.add(stadium)
+            }
+            val adapter = StadiumAdapter(stadiumList)
+            recyclerView.adapter = adapter
+        }
+    }
+    // Lägg till denna metod i MainActivity
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_STADIUM_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            updateView()
+        }
+    }
+
 }

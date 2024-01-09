@@ -1,5 +1,7 @@
 package com.example.stadiums
 
+import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.view.View
 import android.widget.Button
@@ -8,12 +10,15 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import java.text.NumberFormat
 
 class AddStadiumActivity : AppCompatActivity() {
 
     private val REQUEST_CODE = 1
-    private lateinit var imageViewStadium: ImageView
+    lateinit var imageViewStadium: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_stadium)
@@ -22,6 +27,7 @@ class AddStadiumActivity : AppCompatActivity() {
         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
+        val db = Firebase.firestore
 
         val editTextStadiumName = findViewById<EditText>(R.id.editTextStadiumName)
         val editTextCountry = findViewById<EditText>(R.id.editTextCountry)
@@ -30,7 +36,7 @@ class AddStadiumActivity : AppCompatActivity() {
         val editTextBuilt = findViewById<EditText>(R.id.editTextBuilt)
         val editTextTeam = findViewById<EditText>(R.id.editTextTeam)
         val buttonUploadImage = findViewById<Button>(R.id.buttonUploadImage)
-        val imageViewStadium = findViewById<ImageView>(R.id.imageViewStadium)
+        this.imageViewStadium = findViewById(R.id.imageViewStadium)
         val buttonAdd = findViewById<Button>(R.id.buttonAdd)
 
         buttonUploadImage.setOnClickListener {
@@ -47,14 +53,41 @@ class AddStadiumActivity : AppCompatActivity() {
                 val team = editTextTeam.text.toString()
 
                 // Försök att omvandla kapaciteten till en Int och formatera den
-                try {
-                    val capacity = editTextCapacity.text.toString().toInt()
-                    val formattedCapacity = NumberFormat.getNumberInstance().format(capacity)
+                var capacity: Int? = null
 
-                    // Gör något med dessa värden...
+                try {
+                    capacity = editTextCapacity.text.toString().toInt()
+                    val formattedCapacity = NumberFormat.getNumberInstance().format(capacity)
                 } catch (e: NumberFormatException) {
                     // Visa ett felmeddelande till användaren
                 }
+
+                val stadium = hashMapOf(
+                    "stadiumName" to stadiumName,
+                    "country" to country,
+                    "city" to city,
+                    "built" to built,
+                    "team" to team,
+                    "capacity" to capacity
+                )
+
+                buttonAdd.setOnClickListener(object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+                        // Din kod...
+
+                        // I AddStadiumActivity, när du har lagt till den nya stadion
+                        db.collection("stadiums")
+                            .add(stadium)
+                            .addOnSuccessListener { documentReference ->
+                                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                                setResult(Activity.RESULT_OK)  // Sätt resultatet till OK
+                                finish()  // Avsluta aktiviteten
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error adding document", e)
+                            }
+                    }
+                })
             }
         })
 
@@ -65,7 +98,9 @@ class AddStadiumActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             val selectedImage = data.data
             // Gör något med selectedImage, till exempel sätt det i din ImageView
+            Log.d("ImageHandling", "Selected image: $selectedImage")
             imageViewStadium.setImageURI(selectedImage)
+            Log.d("ImageHandling", "Image set in ImageView")
         }
     }
 }
