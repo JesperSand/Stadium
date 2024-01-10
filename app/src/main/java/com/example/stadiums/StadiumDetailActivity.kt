@@ -35,15 +35,27 @@ class StadiumDetailActivity : AppCompatActivity() {
         val stadiumName = intent.getStringExtra("name")
         val stadiumImage = intent.getStringExtra("image")
         val stadiumCity = intent.getStringExtra("city")
+        val stadiumCountry = intent.getStringExtra("country")
+        val stadiumBuilt = intent.getStringExtra("built")
+        val stadiumTeam = intent.getStringExtra("team")
+        val stadiumCapacity = intent.getStringExtra("capacity")
 
         // Hitta TextViews i layouten
         val nameTextView = findViewById<TextView>(R.id.stadiumName)
         val cityTextView = findViewById<TextView>(R.id.city)
         val imageView = findViewById<ImageView>(R.id.stadiumImage)
+        val countryTextView = findViewById<TextView>(R.id.country)
+        val builtTextView = findViewById<TextView>(R.id.built)
+        val teamTextView = findViewById<TextView>(R.id.team)
+        val capacityTextView = findViewById<TextView>(R.id.capacity)
 
         // Sätt texten på TextViews till informationen vi hämtade
         nameTextView.text = "Name: $stadiumName"
         cityTextView.text = "City: $stadiumCity"
+        countryTextView.text = "Country: $stadiumCountry"
+        builtTextView.text = "Year built: $stadiumBuilt"
+        teamTextView.text = "Team: $stadiumTeam"
+        capacityTextView.text = "Capacity: $stadiumCapacity"
 
         // Använd Glide för att ladda bilden
         Glide.with(this)

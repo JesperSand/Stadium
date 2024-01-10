@@ -88,8 +88,14 @@ class MainActivity : AppCompatActivity() {
             for (document in documents) {
                 val name = document.getString("name") ?: "Unknown"
                 val city = document.getString("city") ?: "Unknown"
-                val imageUrl = document.getString("imageUrl") ?: "Unknown" // Hämta URL:en till bilden här
-                val stadium = StadiumAdapter.Stadium(name, imageUrl, city)
+                val imageUrl = document.getString("imageUrl") ?: "Unknown"
+                val country = document.getString("country") ?: "Unknown"
+                val built = document.getString("built") ?: "Unknown"
+                val team = document.getString("team") ?: "Unknown"
+                val capacity = document.getString("capacity") ?: "0"
+
+
+                val stadium = StadiumAdapter.Stadium(name, imageUrl, city, country, built, team, capacity)
                 stadiumList.add(stadium)
             }
             val adapter = StadiumAdapter(stadiumList)
@@ -104,7 +110,13 @@ class MainActivity : AppCompatActivity() {
                 val name = document.getString("name") ?: "Unknown"
                 val city = document.getString("city") ?: "Unknown"
                 val imageUrl = document.getString("imageUrl") ?: "Unknown"
-                val stadium = StadiumAdapter.Stadium(name, imageUrl, city)
+                val country = document.getString("country") ?: "Unknown"
+                val built = document.getString("built") ?: "Unknown"
+                val team = document.getString("team") ?: "Unknown"
+                val capacity = document.getString("capacity") ?: "0"
+
+
+                val stadium = StadiumAdapter.Stadium(name, imageUrl, city, country, built, team, capacity)
                 stadiumList.add(stadium)
             }
             val adapter = StadiumAdapter(stadiumList)

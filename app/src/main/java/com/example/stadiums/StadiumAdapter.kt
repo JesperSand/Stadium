@@ -12,10 +12,14 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class StadiumAdapter(private val stadiumList: List<Stadium>) : RecyclerView.Adapter<StadiumAdapter.StadiumViewHolder>() {
     data class Stadium(
-        val name: String,
-        val image: String,
-        val city: String
-    )
+    val name: String,
+    val image: String,
+    val city: String,
+    val country: String,
+    val built: String,
+    val team: String,
+    val capacity: String)
+
     inner class StadiumViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val stadiumImage: ImageView = view.findViewById(R.id.stadiumImage)
         val stadiumName: TextView = view.findViewById(R.id.stadiumName)
@@ -49,6 +53,10 @@ class StadiumAdapter(private val stadiumList: List<Stadium>) : RecyclerView.Adap
             intent.putExtra("name", stadium.name)
             intent.putExtra("image", stadium.image)
             intent.putExtra("city", stadium.city)
+            intent.putExtra("country", stadium.country)
+            intent.putExtra("built", stadium.built)
+            intent.putExtra("team", stadium.team)
+            intent.putExtra("capacity", stadium.capacity)
 
             // Starta StadiumDetailActivity
             holder.itemView.context.startActivity(intent)

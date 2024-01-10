@@ -46,48 +46,40 @@ class AddStadiumActivity : AppCompatActivity() {
 
         buttonAdd.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val stadiumName = editTextStadiumName.text.toString()
+                val name = editTextStadiumName.text.toString()
                 val country = editTextCountry.text.toString()
                 val city = editTextCity.text.toString()
                 val built = editTextBuilt.text.toString()
                 val team = editTextTeam.text.toString()
-
-                // Försök att omvandla kapaciteten till en Int och formatera den
-                var capacity: Int? = null
-
+                var formattedCapacity: String = ""
                 try {
-                    capacity = editTextCapacity.text.toString().toInt()
-                    val formattedCapacity = NumberFormat.getNumberInstance().format(capacity)
+                    val capacity = editTextCapacity.text.toString().toInt()
+                    formattedCapacity = NumberFormat.getNumberInstance().format(capacity)
                 } catch (e: NumberFormatException) {
                     // Visa ett felmeddelande till användaren
                 }
 
                 val stadium = hashMapOf(
-                    "stadiumName" to stadiumName,
+                    "name" to name,
                     "country" to country,
                     "city" to city,
                     "built" to built,
                     "team" to team,
-                    "capacity" to capacity
+                    "capacity" to formattedCapacity
                 )
 
-                buttonAdd.setOnClickListener(object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-                        // Din kod...
-
-                        // I AddStadiumActivity, när du har lagt till den nya stadion
-                        db.collection("stadiums")
-                            .add(stadium)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                                setResult(Activity.RESULT_OK)  // Sätt resultatet till OK
-                                finish()  // Avsluta aktiviteten
-                            }
-                            .addOnFailureListener { e ->
-                                Log.w(TAG, "Error adding document", e)
-                            }
+                // Din kod...
+                // I AddStadiumActivity, när du har lagt till den nya stadion
+                db.collection("stadiums")
+                    .add(stadium)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                        setResult(Activity.RESULT_OK)  // Sätt resultatet till OK
+                        finish()  // Avsluta aktiviteten
                     }
-                })
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "Error adding document", e)
+                    }
             }
         })
 
