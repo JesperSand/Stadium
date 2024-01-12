@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-
         val addButton = findViewById<Button>(R.id.addButton)
         addButton.setOnClickListener {
             val intent = Intent(this, AddStadiumActivity::class.java)
@@ -74,7 +73,6 @@ class MainActivity : AppCompatActivity() {
                     db.collection("stadiums").document().set(stadiumDocument)
                 }
             }
-
             // Sätt isFirstRun till false
             with (sharedPref.edit()) {
                 putBoolean("isFirstRun", false)
@@ -93,7 +91,6 @@ class MainActivity : AppCompatActivity() {
                 val built = document.getString("built") ?: "Unknown"
                 val team = document.getString("team") ?: "Unknown"
                 val capacity = document.getString("capacity") ?: "0"
-
 
                 val stadium = StadiumAdapter.Stadium(name, imageUrl, city, country, built, team, capacity)
                 stadiumList.add(stadium)
@@ -114,7 +111,6 @@ class MainActivity : AppCompatActivity() {
                 val built = document.getString("built") ?: "Unknown"
                 val team = document.getString("team") ?: "Unknown"
                 val capacity = document.getString("capacity") ?: "0"
-
 
                 val stadium = StadiumAdapter.Stadium(name, imageUrl, city, country, built, team, capacity)
                 stadiumList.add(stadium)
